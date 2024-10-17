@@ -19,7 +19,7 @@ const pool = new Pool({
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithEmail = function (email) {
-
+  email = email.toLowerCase();
   return pool.query(
     `
     SELECT *
@@ -45,7 +45,7 @@ const getUserWithId = function (id) {
   // return Promise.resolve(users[id]);
   return pool.query(
     `
-    SELECT name, email
+    SELECT *
     FROM users
     WHERE id = $1
     LIMIT 1;
@@ -69,7 +69,8 @@ const addUser = function (user) {
   return pool.query(
     `
     INSERT INTO users (name, email, password) 
-    VALUES ($1, $2, $3); 
+    VALUES ($1, $2, $3)
+    RETURNING *; 
     `,
     [user.name, user.email, user.password]
   )
