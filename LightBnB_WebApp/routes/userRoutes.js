@@ -4,6 +4,8 @@ const database = require("../db/database");
 
 const router = express.Router();
 
+// const salt = bcrypt.genSaltSync(10);
+
 // Create a new user
 router.post("/", (req, res) => {
   const user = req.body;
