@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS properties CASCADE;
 DROP TABLE IF EXISTS reservations CASCADE;
 DROP TABLE IF EXISTS property_reviews CASCADE;
-DROP TABLE IF EXISTS properties CASCADE;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE properties (
   city VARCHAR(255) NOT NULL,
   province VARCHAR(255) NOT NULL,
   post_code VARCHAR(255) NOT NULL,
-  active BOOLEAN NOT NULL
+  active BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE reservations (
@@ -43,5 +43,5 @@ CREATE TABLE property_reviews (
   property_id INTEGER NOT NULL REFERENCES properties(id) ON DELETE CASCADE,
   reservation_id INTEGER NOT NULL REFERENCES reservations(id) ON DELETE CASCADE,
   rating SMALLINT NOT NULL DEFAULT 0,
-  message TEXT NOT NULL
+  message TEXT
 );
